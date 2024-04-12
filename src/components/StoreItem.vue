@@ -1,5 +1,5 @@
 <template>
-  <v-card class="store-item" hover>
+  <v-card class="store-item" height="100%" hover>
     <v-img :src="image" height="200px"></v-img>
     <v-card-title>{{ name }}</v-card-title>
     <v-card-subtitle>
@@ -11,7 +11,7 @@
         class="ma-2"
       ></v-rating>
     <span class="ma-2">
-      <v-icon style="color: green;">mdi-cash</v-icon> {{ price }}
+      <v-icon style="color: green;">mdi-cash</v-icon> ${{ price }}
     </span>
     <span class="ma-2">
       <v-icon style="color: blue">mdi-package-variant-closed</v-icon> {{ stock }}

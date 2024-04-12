@@ -1,10 +1,8 @@
 <template>
   <v-container>
     <v-row> 
-      <v-col>
-        <template v-for="(item) in bestSellers" :key="item" :item = "item">
-          <StoreItem :prod = "item"></StoreItem>
-        </template>
+      <v-col cols="12" sm="6" md="4" v-for="item in bestSellers" :key="item.id">
+        <StoreItem :prod = "item"></StoreItem>
       </v-col>
     </v-row>
   </v-container>
