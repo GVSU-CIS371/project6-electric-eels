@@ -1,14 +1,7 @@
 import {
-    collection,
-    deleteDoc,
-    deleteField,
-    doc,
     Firestore,
-    getDocs,
-    query,
-    QueryDocumentSnapshot,
-    QuerySnapshot,
+    doc,
     updateDoc,
-    where,
+    arrayRemove,
+    increment,
   } from "firebase/firestore";
-  
