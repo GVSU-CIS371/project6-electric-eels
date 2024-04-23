@@ -33,26 +33,27 @@ export const useProductStore = defineStore("ProductStore", {
           if (qs.size > 0) {
             console.log("Database already initialized");
             qs.docs.forEach((doc) => {
-              //this.items.push({id: doc.id, data: doc.data().data});
+              this.items.push({id: doc.id, data: doc.data().data});
+              console.log("Document data: ", doc.data().data);
             });
             return;
+          } else {
+            console.log("Database not initialized, adding items...")
+            this.items = initProducts;
+            //Add the items to the Firestore database
+            initProducts.forEach(async (item) => {
+              const doc1: DocumentReference = doc(db, "products", item.id);
+              await setDoc(doc1, {data: item.data})
+              .then(() => {
+                console.log("Document written with ID: ", doc1.id);})
+              .catch((error) => {
+                console.log("Failed to add document ", doc1.id, ":", error);
+              });
+            });
           }
         }).catch((error) => {
           console.log("Failed to get snapshot: ", error);
           return;
-        });
-
-        console.log("Database not initialized, adding items...")
-        this.items = initProducts;
-        //Add the items to the Firestore database
-        initProducts.forEach(async (item) => {
-          const doc1: DocumentReference = doc(db, "products", item.id);
-          await setDoc(doc1, {data: item.data})
-          .then(() => {
-            console.log("Document written with ID: ", doc1.id);})
-          .catch((error) => {
-            console.log("Failed to add document ", doc1.id, ":", error);
-          });
         });
         
       },
