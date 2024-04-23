@@ -7,6 +7,7 @@ import { db } from "../main";
 export const useProductStore = defineStore("ProductStore", {
   //initProducts is the list of items
   //ProductDoc is the type of each item
+  
   /*
   ProductDoc {
     id: string;
@@ -21,19 +22,19 @@ export const useProductStore = defineStore("ProductStore", {
   }
   */
 
-
   state: () => {
       return { items: [] as ProductDoc[] };
     },
     actions: {
       init() {
-        this.items = initProducts;
-
         //Check whether the database has been initialized
         const prodColl = collection(db, "products");
         getDocs(prodColl).then((qs:QuerySnapshot) => {
           if (qs.size > 0) {
             console.log("Database already initialized");
+            qs.docs.forEach((doc) => {
+              //this.items.push({id: doc.id, data: doc.data().data});
+            });
             return;
           }
         }).catch((error) => {
@@ -42,7 +43,7 @@ export const useProductStore = defineStore("ProductStore", {
         });
 
         console.log("Database not initialized, adding items...")
-
+        this.items = initProducts;
         //Add the items to the Firestore database
         initProducts.forEach(async (item) => {
           const doc1: DocumentReference = doc(db, "products", item.id);
@@ -54,8 +55,6 @@ export const useProductStore = defineStore("ProductStore", {
           });
         });
         
-
-
       },
       filterByCategory(category: string) {
         return this.items.filter((item) => item.data.category === category);

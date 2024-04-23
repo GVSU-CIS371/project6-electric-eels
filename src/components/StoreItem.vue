@@ -24,6 +24,11 @@
 <script lang="ts" setup>
   import { ProductDoc } from '../types/product';
   import { ref } from 'vue';
+  import { db } from "../main";
+  import { doc } from "firebase/firestore";
+  
+  const exampleRef = doc(db, 'products', 'product1')
+
 
   const props = defineProps<{prod: ProductDoc}>();
 
