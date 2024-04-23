@@ -7,8 +7,8 @@ import {
   Firestore,
   setDoc,
 } from "firebase/firestore";
-    import { db } from "./main";
-    import { Product } from "./types/product";
+    import { db } from "../main";
+    import { Product } from "../types/product";
 
 export function createItem(id: string, data: Product) {
     const doc1 = doc(db, "products", id);
