@@ -25,7 +25,7 @@ const firebaseConfig = {
 };
 
 const myapp: FirebaseApp = initializeApp(firebaseConfig);
-const db: Firestore = getFirestore(myapp);
+export const db: Firestore = getFirestore(myapp);
 
 const vuetify = createVuetify({
   icons: {
