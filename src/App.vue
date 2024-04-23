@@ -6,6 +6,10 @@
         <v-icon>{{ link.icon }}</v-icon>
         {{ link.text }}
       </v-btn>
+      <v-btn color="primary" @click="showAddProductDialog = true">
+        <v-icon>mdi-plus</v-icon>
+        Add Product
+      </v-btn>
     </v-app-bar>
     <v-main class="bg-blue-lighten-5">
       <router-view v-slot="{ Component }">
