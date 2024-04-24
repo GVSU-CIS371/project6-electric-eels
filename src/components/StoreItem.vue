@@ -42,8 +42,8 @@ import { doc, onSnapshot, updateDoc, setDoc } from "firebase/firestore";
 
 const props = defineProps<{ prod: ProductDoc }>();
 const store = useProductStore();
-
 const product = reactive({ ...props.prod });
+const categories = ['Groceries', 'Electronics', 'Clothing', 'BestSeller']
 
 let unsubscribe: () => void;
 onMounted(() => {
