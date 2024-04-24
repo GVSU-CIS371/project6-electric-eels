@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ProductDoc } from "../types/product";
 import { initProducts } from "../data-init";
-import { collection, setDoc, DocumentReference, doc, getDocs, QuerySnapshot } from "firebase/firestore";
+import { collection, deleteDoc, setDoc, DocumentReference, doc, getDocs, QuerySnapshot } from "firebase/firestore";
 import { db } from "../main";
 
 export const useProductStore = defineStore("ProductStore", {
@@ -30,7 +30,7 @@ export const useProductStore = defineStore("ProductStore", {
         //Check whether the database has been initialized
         const prodColl = collection(db, "products");
         getDocs(prodColl).then((qs:QuerySnapshot) => {
-          if (qs.size > 0) {
+          if (qs.size > 7) {
             console.log("Database already initialized");
             qs.docs.forEach((doc) => {
               this.items.push({id: doc.id, data: doc.data().data});
@@ -62,7 +62,16 @@ export const useProductStore = defineStore("ProductStore", {
       },
       filterByRating(minRating: number) {
         return this.items.filter((item) => item.data.rating >= minRating);
-      }
+      },
+      async deleteProduct(productId: string) {
+        try {
+          const docRef = doc(db, "products", productId);
+          await deleteDoc(docRef);
+          this.items = this.items.filter(item => item.id !== productId);
+        } catch (error) {
+          console.error("Failed to delete product: ", error);
+        }
+      },
     },
 });
 
