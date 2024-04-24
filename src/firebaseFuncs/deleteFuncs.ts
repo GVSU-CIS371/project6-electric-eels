@@ -1,18 +1,8 @@
 import {
-    collection,
     deleteDoc,
-    deleteField,
     doc,
-    Firestore,
-    getDocs,
-    query,
-    QueryDocumentSnapshot,
-    QuerySnapshot,
-    updateDoc,
-    where,
   } from "firebase/firestore";
 import { db } from "../main";
-import { Product } from "../types/product";
 
 
 export function deleteItem(id: string) {

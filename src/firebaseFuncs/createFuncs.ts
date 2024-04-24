@@ -1,10 +1,8 @@
 import {
   addDoc,
   collection,
-  CollectionReference,
   doc,
   DocumentReference,
-  Firestore,
   setDoc,
 } from "firebase/firestore";
     import { db } from "../main";
