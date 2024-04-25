@@ -19,11 +19,18 @@ export function createItem(id: string, data: Product) {
 }
 
 export function addItem(data: Product) {
-    addDoc(collection(db, "products"), {data: data})
+    const coll = collection(db, "products");
+    let doc1: DocumentReference = doc(db, "products", "temp");
+    addDoc(coll, {data: data})
     .then((docRef: DocumentReference) => {
-        console.log("Document written with ID: ", docRef.id);})
+        console.log("Document written with ID: ", docRef.id);
+        doc1 = docRef;
+        return docRef;
+    })
     .catch((error) => {
         console.log("Failed to add document: ", error);
+        return doc1;
     });
+    return doc1;
 }
     

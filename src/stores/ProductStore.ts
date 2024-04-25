@@ -3,6 +3,9 @@ import { ProductDoc, Product } from "../types/product";
 import { initProducts } from "../data-init";
 import { collection, deleteDoc, setDoc, DocumentReference, doc, getDocs, QuerySnapshot, addDoc } from "firebase/firestore";
 import { db } from "../main";
+import { addItem } from "../firebaseFuncs/createFuncs";
+import { deleteItem } from "../firebaseFuncs/deleteFuncs";
+
 
 export const useProductStore = defineStore("ProductStore", {
   //initProducts is the list of items
@@ -64,26 +67,11 @@ export const useProductStore = defineStore("ProductStore", {
         return this.items.filter((item) => item.data.rating >= minRating);
       },
       async deleteProduct(productId: string) {
-        try {
-          const docRef = doc(db, "products", productId);
-          await deleteDoc(docRef);
+          await deleteItem(productId);
           this.items = this.items.filter(item => item.id !== productId);
-        } catch (error) {
-          console.error("Failed to delete product: ", error);
-        }
       },
       async addProduct(product: Product) {
-        const docRef = await addDoc(collection(db, "products"), {
-          data: {
-            name: product.name,
-            description: product.description,
-            price: product.price,
-            stock: product.stock,
-            rating: product.rating,
-            image: product.image,
-            category: product.category
-          }
-        });
+        const docRef = await addItem(product);
         this.items.push({
           id: docRef.id,
           data: product
