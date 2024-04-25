@@ -38,7 +38,7 @@ import { ProductDoc } from '../types/product';
 import { useProductStore } from '../stores/ProductStore';
 import { ref, reactive, onMounted, onUnmounted } from 'vue';
 import { db } from "../main";
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc, query, collection } from "firebase/firestore";
 
 const props = defineProps<{ prod: ProductDoc }>();
 const store = useProductStore();
@@ -47,13 +47,21 @@ const categories = ['Groceries', 'Electronics', 'Clothing']
 
 let unsubscribe: () => void;
 onMounted(() => {
-  const docRef = doc(db, "products", props.prod.id);
-  unsubscribe = onSnapshot(docRef, (doc) => {
-    if (doc.exists()) {
-      product.data = doc.data().data;
-    } else {
-      console.log("No such document!", props.prod.id);
-    }
+    const q = query(collection(db, "products"));
+    unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const products = [];
+        querySnapshot.forEach((doc) => {
+        products.push({ id: doc.id, data: doc.data() });
+    });
+
+    const docRef = doc(db, "products", props.prod.id);
+    unsubscribe = onSnapshot(docRef, (doc) => {
+        if (doc.exists()) {
+            product.data = doc.data().data;
+        } else {
+            console.log("No such document!", props.prod.id);
+        }
+    });
   });
 });
 
