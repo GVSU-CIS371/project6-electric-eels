@@ -22,6 +22,19 @@
     <v-footer color="primary" app>
       © 2023 My Online Store. All rights reserved.
     </v-footer>
+
+    <v-dialog v-model="showAddProductDialog" persistent max-width="600px">
+      <v-card>
+        <v-card-text>
+          <AddItem @closeDialog="showAddProductDialog = false" />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" text @click="showAddProductDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-app>
 </template>
 
@@ -30,10 +43,12 @@ import { ref } from "vue";
 
 
 import { useProductStore } from './stores/ProductStore';
+import AddItem from "./components/AddItem.vue";
 
 const store = useProductStore();
 store.init();
 
+const showAddProductDialog = ref(false);
 
 const links = ref([
   { text: "Home", to: "/", icon: "mdi-home" },

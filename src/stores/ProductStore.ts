@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import { ProductDoc } from "../types/product";
+import { ProductDoc, Product } from "../types/product";
 import { initProducts } from "../data-init";
-import { collection, deleteDoc, setDoc, DocumentReference, doc, getDocs, QuerySnapshot } from "firebase/firestore";
+import { collection, deleteDoc, setDoc, DocumentReference, doc, getDocs, QuerySnapshot, addDoc } from "firebase/firestore";
 import { db } from "../main";
 
 export const useProductStore = defineStore("ProductStore", {
@@ -71,6 +71,23 @@ export const useProductStore = defineStore("ProductStore", {
         } catch (error) {
           console.error("Failed to delete product: ", error);
         }
+      },
+      async addProduct(product: Product) {
+        const docRef = await addDoc(collection(db, "products"), {
+          data: {
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            stock: product.stock,
+            rating: product.rating,
+            image: product.image,
+            category: product.category
+          }
+        });
+        this.items.push({
+          id: docRef.id,
+          data: product
+        })
       },
     },
 });
