@@ -6,7 +6,7 @@
         <v-icon>{{ link.icon }}</v-icon>
         {{ link.text }}
       </v-btn>
-      <v-btn color="primary" @click="showAddProductDialog = true">
+      <v-btn color="secondary" @click="showAddProductDialog = true">
         <v-icon>mdi-plus</v-icon>
         Add Product
       </v-btn>
