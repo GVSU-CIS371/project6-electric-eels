@@ -20,7 +20,7 @@ import { useProductStore } from '../stores/ProductStore';
 import { Product } from '../types/product';
   
 const store = useProductStore();
-const categories = ['Groceries', 'Electronics', 'Clothing', 'BestSeller']
+const categories = ['Groceries', 'Electronics', 'Clothing']
 
 const newItem: Ref<Product> = ref({
   name: '',

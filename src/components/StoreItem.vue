@@ -80,7 +80,7 @@ const updateItem = async () => {
     if (confirmed) {
         Object.assign(product.data, editedItem.data)
         const docRef = doc(db, "products", props.prod.id);
-        await updateDoc(docRef, editedItem.data )
+        await updateDoc(docRef, editedItem)
         .catch((error) => {
             console.error("Failed to update: ", error);
             Object.assign(product.data, props.prod.data);

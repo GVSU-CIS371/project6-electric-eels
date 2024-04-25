@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { ProductDoc, Product } from "../types/product";
 import { initProducts } from "../data-init";
-import { collection, deleteDoc, setDoc, DocumentReference, doc, getDocs, QuerySnapshot, addDoc } from "firebase/firestore";
+import { collection, setDoc, DocumentReference, doc, getDocs, QuerySnapshot } from "firebase/firestore";
 import { db } from "../main";
 import { addItem } from "../firebaseFuncs/createFuncs";
 import { deleteItem } from "../firebaseFuncs/deleteFuncs";
