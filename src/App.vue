@@ -30,7 +30,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="showAddProductDialog = false">Close</v-btn>
+          <v-btn color="red" @click="showAddProductDialog = false">Close</v-btn> <!-- Removed 'text' between "red" and @click -->
         </v-card-actions>
       </v-card>
     </v-dialog>

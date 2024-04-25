@@ -52,7 +52,7 @@ onMounted(() => {
     if (doc.exists()) {
       product.data = doc.data().data;
     } else {
-      console.log("No such document!");
+      console.log("No such document!", props.prod.id);
     }
   });
 });
